@@ -1,0 +1,20 @@
+.chatter {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    width: 80%;
+}
+
+.chat {
+    background-color: #00000076;
+    height: 100%;
+    width: 70%;
+}
+
+.sidebar {
+    background-color: #080420;
+    width: 30%;
+}
