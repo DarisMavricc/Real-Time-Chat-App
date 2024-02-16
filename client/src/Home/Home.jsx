@@ -1,7 +1,16 @@
+import { useState } from "react";
 import "./Home.css"
+import { Chat } from "../Chat/Chat";
 import { IoMdSend } from "react-icons/io";
 
 export const Home = () => {
+
+    const [ChatId,SetChatId] = useState(undefined);
+
+    const ShowChat = () => {
+        SetChatId(2323);
+    }
+
     return (
         <div className="chatter">
             <div className="sidebar">
@@ -9,7 +18,7 @@ export const Home = () => {
                     <h1>Chatter</h1>
                 </div>
                 <div className="users">
-                    <div className="user">
+                    <div className="user" onClick={() => ShowChat()}>
                         <p>Daris</p>
                     </div>
                     <div className="user">
@@ -41,26 +50,15 @@ export const Home = () => {
                 </div>
             </div>
             <div className="chat">
-                <div className="no-chat">
-                    <h1>Select a Contact and start Chatting</h1>
-                </div>
-                <div className="user-chat">
-                    <div className="user-profile">
-                        <h1>Daris</h1>
-                    </div>
-                    <div className="messages">
-                        <div className="sender-message">
-                            <p>Hi</p>
+                {
+                   ChatId === undefined ? (
+                        <div className="no-chat">
+                            <h1>Select a Contact and start Chatting</h1>
                         </div>
-                        <div className="reciever-message">
-                            <p>Hi</p>
-                        </div>
-                    </div>
-                    <div className="send-message">
-                        <input type="text" placeholder="type some message here"/>
-                        <button><IoMdSend/></button>
-                    </div>
-                </div>
+                   ) : (
+                    <Chat id={ChatId}/>
+                   )
+                }
             </div>
         </div>
     )
