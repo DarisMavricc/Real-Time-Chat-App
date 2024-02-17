@@ -1,8 +1,26 @@
 import "./Register.css"
 import {useFormik} from 'formik'
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
+import { AuthContext } from "../Context/AuthContext";
 
 export const Register = () => {
+
+    
+
+    const [err,setErr] = useState(null);
+
+    const navigate = useNavigate();
+
+    const {currentUser} = useContext(AuthContext);
+    const {register} = useContext(AuthContext);
+
+    useEffect(() => {
+        if(currentUser) {
+            navigate('/');
+        }
+    },[])
 
     const formik = useFormik({
         initialValues: {
@@ -26,19 +44,19 @@ export const Register = () => {
                 username: formik.values.username,
                 password: formik.values.password
             };
-            console.log(data);
-            /*try {
+            try {
                 await register(data);
                 navigate('/');
               } catch (err) {
                 setErr(err.response.data);
-            }*/
+            }
           
     }});
 
     return (
         <div className="register">
             <h1>Chatter</h1>
+            {err && err}
             <input type="text" placeholder="Full Name" name="fullName" onChange={formik.handleChange}/>
             {formik.errors.fullName && formik.touched.fullName ? (<p className="error">{formik.errors.fullName}</p>) : null}
             <input type="email" placeholder="Email" name="email" onChange={formik.handleChange}/>

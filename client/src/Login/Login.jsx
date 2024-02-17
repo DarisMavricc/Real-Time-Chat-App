@@ -1,8 +1,25 @@
 import "./Login.css"
+import {useEffect, useState} from "react"
 import {useFormik} from 'formik'
+import { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
+import { AuthContext } from "../Context/AuthContext";
 
 export const Login = () => {
+
+    const [err,setErr] = useState(null);
+
+    const navigate = useNavigate();
+
+    const {login} = useContext(AuthContext);
+    const {currentUser} = useContext(AuthContext);
+
+    useEffect(() => {
+        if(currentUser) {
+            navigate('/');
+        }
+    },[])
 
     const formik = useFormik({
         initialValues: {
@@ -20,13 +37,12 @@ export const Login = () => {
                 username: formik.values.username,
                 password: formik.values.password
             };
-            console.log(data);
-            /*try {
-                await register(data);
+            try {
+                await login(data);
                 navigate('/');
               } catch (err) {
                 setErr(err.response.data);
-            }*/
+            }
           
     }});
 
